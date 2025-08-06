@@ -16,5 +16,19 @@
 }
 
 .msg {
+  width: 510px;
   font-size: 25px;
+  margin-top: 25px
 }
+
+.msg div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.msg button {
+  font-size: 25px;
+  margin-left: 10px;
+}
+

@@ -4,9 +4,17 @@ const removeText = document.querySelector('#clearBtn');
 const newText = document.querySelector('#messages');
 
 addText.addEventListener('click', () => {
-  const p = document.createElement('p')
-  p.textContent = input.value;
-  newText.appendChild(p);
+  const div = document.createElement('div')
+  const btn = document.createElement('button')
+  div.textContent = input.value;
+  btn.textContent = "Видалити";
+  
+  btn.addEventListener('click', () => {
+    div.remove();
+  });
+  
+  newText.appendChild(div);
+  div.appendChild(btn);
   input.value = '';
 });
 
