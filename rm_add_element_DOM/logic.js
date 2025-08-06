@@ -6,7 +6,11 @@ const newText = document.querySelector('#messages');
 addText.addEventListener('click', () => {
   const div = document.createElement('div')
   const btn = document.createElement('button')
-  div.textContent = input.value;
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  
+  div.textContent = `${input.value} - ${hours}:${minutes}`;
   btn.textContent = "Видалити";
   
   btn.addEventListener('click', () => {
