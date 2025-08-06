@@ -1,0 +1,20 @@
+.input {
+  padding: 10px;
+  font-size: 20px;
+}
+
+.add-button {
+  padding: 10px;
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+.rm-button {
+  padding: 10px;
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+.msg {
+  font-size: 25px;
+}
