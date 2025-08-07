@@ -25,3 +25,10 @@ addText.addEventListener('click', () => {
 removeText.addEventListener('click', () => {
   newText.innerHTML = '';
 });
+
+const themeButton = document.querySelector('#themeBtn');
+
+themeButton.addEventListener('click', () => {
+  const isDark = document.body.classList.toggle('dark-theme');
+  themeButton.textContent = isDark ? 'Світла тема' : 'Темна тема';
+});
