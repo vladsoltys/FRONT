@@ -14,7 +14,7 @@ addText.addEventListener('click', () => {
 
   // Якщо обидва поля заповнені створюємо нове повідомлення
   if (name && message) {
-
+    // Очищення попередніх повідомлень про помилки
     errorMsg.innerHTML = '';
 
     const div = document.createElement('div');
@@ -23,18 +23,18 @@ addText.addEventListener('click', () => {
     const hours = now.getHours().toString().padStart(2, '0');
     const minutes = now.getMinutes().toString().padStart(2, '0');
 
-    div.textContent = `${name.value}: ${message.value} - ${hours}:${minutes}`;
+    div.textContent = `${name}: ${message} - ${hours}:${minutes}`;
     btn.textContent = "Видалити";
 
     // Кнопка видалення для кожного повідомлення окремо 
     btn.addEventListener('click', () => {
       div.remove();
     });
-
-    newText.appendChild(div);
+    
     div.appendChild(btn);
-    message.value = '';
-    name.value = '';
+    newText.appendChild(div);
+    input.value = '';
+    inputName.value = '';
   }
   // Перевірка на заповненість полів, якщо обидва поля пусті
   else if (!name && !message) {
