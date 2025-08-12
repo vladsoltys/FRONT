@@ -5,8 +5,15 @@ const removeText = document.querySelector('#clearBtn');
 const newText = document.querySelector('#messages');
 const errorMsg = document.querySelector('#errorMessages');
 
+// Лічильник для унікальних ID повідомлень
+let counter = 0;
+
 // Функція кнопки, що дадає нове повідомлення з іменем користувача та часом
 addText.addEventListener('click', () => {
+
+  // Отримання значень з полів вводу
+  // Використовуємо trim() для видалення пробілів на початку
+  // та в кінці рядка, щоб уникнути порожніх повідомлень
   const name = inputName.value.trim();
   const message = input.value.trim();
 
@@ -14,25 +21,26 @@ addText.addEventListener('click', () => {
 
   // Якщо обидва поля заповнені створюємо нове повідомлення
   if (name && message) {
-    // Очищення попередніх повідомлень про помилки
-    errorMsg.innerHTML = '';
+    
+    errorMsg.innerHTML = ''; // Очищення попередніх повідомлень про помилки
 
-    const div = document.createElement('div');
-    const btn = document.createElement('button');
+    const div = document.createElement('div'); // Створюємо новий div для повідомлення
+
+    counter++;
+    div.setAttribute('data-id', counter); // Додаємо атрибут data-id для кожного повідомлення
+
+    // Отримуємо поточний час для відображення
     const now = new Date();
     const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-
-    div.textContent = `${name}: ${message} - ${hours}:${minutes}`;
-    btn.textContent = "Видалити";
-
-    // Кнопка видалення для кожного повідомлення окремо 
-    btn.addEventListener('click', () => {
-      div.remove();
-    });
+    const minutes = now.getMinutes().toString().padStart(2, '0'); 
     
-    div.appendChild(btn);
+    // Заповнюємо div вмістом
+    div.innerHTML = `${name}: ${message} - ${hours}:${minutes} <button>Видалити</button>`;
+    
+    // Додаємо нове повідомлення до контейнера
     newText.appendChild(div);
+
+    // Очищення полів вводу після додавання повідомлення
     input.value = '';
     inputName.value = '';
   }
@@ -40,6 +48,7 @@ addText.addEventListener('click', () => {
   else if (!name && !message) {
     errorMsg.innerHTML = '';
 
+    // Створюємо новий div для повідомлення про помилку
     const div = document.createElement('div');
     div.textContent = 'Поля не можуть бути пустими'
     errorMsg.appendChild(div);
@@ -61,6 +70,16 @@ addText.addEventListener('click', () => {
     errorMsg.appendChild(div);
   }
 
+});
+
+// Додавання кнопки для видалення окремих повідомлень
+newText.addEventListener('click', (event) => {
+  if (event.target.tagName === 'BUTTON') {
+    const messageDiv = event.target.parentElement; // Отримуємо батьківський div повідомлення
+    const id = messageDiv.getAttribute('data-id'); // Створюємо змінну id для повідомлення
+    console.log(`Видалення повідомлення з ID: ${id}`); // Лог для перевірки ID повідомлення
+    messageDiv.remove(); // Видаляємо повідомлення з DOM
+  }
 });
 
 // Кнопка для очищення всіх повідомлень
