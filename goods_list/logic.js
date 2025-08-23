@@ -18,14 +18,14 @@ buttons.forEach(btn => {
       quantity++;
       existingItem.dataset.quantity = quantity;
       
-      existingItem.innerHTML = `${name} - ${price} грн (кількість: ${quantity})<button>Видалити</button>`;
+      existingItem.innerHTML = `${name} - ${price} грн (кількість: ${quantity})  <button class = "oneItem">Видалити</button>  <button class = "allItem">Видалити все</button>`;
     } else {
       const li = document.createElement("li"); 
       li.dataset.name = name;
       li.dataset.price = price;
       li.dataset.quantity = 1;
       
-      li.innerHTML = `${name} - ${price} грн (кількість: 1)<button>Видалити</button>`;
+      li.innerHTML = `${name} - ${price} грн (кількість: 1)  <button class = "oneItem">Видалити</button class = "allItem">  <button>Видалити все</button>`;
       cart.appendChild(li);
     }
     
@@ -37,7 +37,7 @@ buttons.forEach(btn => {
 
 
 cart.addEventListener('click', (event) => {
-    if (event.target.tagName === "BUTTON") {
+    if (event.target.classList.contains("allItem")) {
         const parentLi = event.target.parentElement;
         const price = parseInt(parentLi.dataset.price);
         const quantity = parseInt(parentLi.dataset.quantity)
@@ -47,3 +47,22 @@ cart.addEventListener('click', (event) => {
         total.innerHTML = `Сумма товарів в списку: ${counter} грн`;  
      }  
 });
+
+cart.addEventListener('click', (event) => {
+    if (event.target.classList.contains("oneItem")) {
+        const parentLi = event.target.parentElement;
+        const price = parseInt(parentLi.dataset.price);
+        const name = parentLi.dataset.name;
+        let quantity = parseInt(parentLi.dataset.quantity);
+
+        if (quantity > 1) {
+          quantity--;
+          parentLi.dataset.quantity = quantity;
+          parentLi.innerHTML = `${name} - ${price} грн (кількість: ${quantity})  <button class = "oneItem">Видалити</button>  <button class = "allItem">Видалити все</button>`;
+        } else { parentLi.remove(); }
+      
+        counter -= price
+        total.innerHTML = `Сумма товарів в списку: ${counter} грн`;  
+     }  
+});
+
